@@ -22,8 +22,10 @@ with open(dataDir + "/portals.json", "w") as f:
     f.write(json.dumps(portals))
 
 sha = subprocess.check_output(["git", "log", "--format=\"%H\"", "-n", "1"]).replace("\"", "")
+username = subprocess.check_output(["git", "log", "-1", "--pretty=format:'%an'"])
+email = subprocess.check_output(["git", "log", "-1", "--pretty=format:'%ae'"])
 os.chdir("endyok.github.io/")
 subprocess.call(["git", "add", "."])
-subprocess.call(["git", "commit", "-m", "fetch: EndYok/portallar@" + sha])
+subprocess.call(["git", "-c", "user.name=" + username, "-c", "user.email=" + email, "commit", "-m", "fetch: EndYok/portallar@" + sha])
 subprocess.call(["git", "push"])
     

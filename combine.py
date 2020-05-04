@@ -27,5 +27,5 @@ email = subprocess.check_output(["git", "log", "-1", "--pretty=format:'%ae'"])
 os.chdir("endyok.github.io/")
 subprocess.call(["git", "add", "."])
 subprocess.call(["git", "-c", "user.name=" + username, "-c", "user.email=" + email, "commit", "-m", "fetch: EndYok/portallar@" + sha])
-subprocess.call(["git", "push", "HEAD:source"])
+subprocess.call(["git", "push", "HEAD:source", "HEAD:source"])
     

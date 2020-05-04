@@ -3,13 +3,7 @@ import os
 import subprocess
 import sys
 
-if (len(sys.argv) != 1):
-    sys.exit("Missing GitHub deploy key.")
-
-sha = subprocess.check_output(["git", "log", "--format=\"%H\"", "-n", "1"]).replace("\"", "")
-directory = "endyok.github.io/data"
 portals = {}
-
 for fileName in [f for f in os.listdir("portals/")]:
     with open("portals/" + fileName, "r") as f:        
         portal = json.loads(f.read())
@@ -20,12 +14,16 @@ for fileName in [f for f in os.listdir("portals/")]:
         }
 
 subprocess.call(["git", "clone", "https://github.com/EndYok/endyok.github.io"])
+
+dataDir = "endyok.github.io/data"
+if not os.path.exists(dataDir):
+    os.makedirs(dataDir)
+with open(dataDir + "/portals.json", "w") as f:
+    f.write(json.dumps(portals))
+
+sha = subprocess.check_output(["git", "log", "--format=\"%H\"", "-n", "1"]).replace("\"", "")
+os.chdir("endyok.github.io/")
 subprocess.call(["git", "add", "."])
 subprocess.call(["git", "commit", "-m", "fetch: EndYok/portallar@" + sha])
-
-if not os.path.exists(directory):
-    os.makedirs(directory)
-
-with open(directory + "/portals.json", "w") as f:
-    f.write(json.dumps(portals))
+subprocess.call(["git", "push"])
     

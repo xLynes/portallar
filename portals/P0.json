@@ -1,9 +1,14 @@
 {
-    "exists": true, 
+    "exists": false, 
     "id": "P0", 
     "location": {
         "x": 1712, 
         "z": 1696
     }, 
-    "proofs": []
+    "proofs": [
+        {
+            "name": "P0_Lynes.mp4",
+            "publisher": "Lynes"
+        }
+    ]
 }

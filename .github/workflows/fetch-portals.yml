@@ -6,19 +6,15 @@ on:
       - master
 
 jobs:
-  pages:
+  Portals:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
 
-      - name: Setup portal deploy key
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-add - <<< "${{ secrets.PORTAL_DEPLOY_KEY }}"
+      - name: Setup ssh keys
+        uses: webfactory/ssh-agent@v0.2.0
+        with:
+            ssh-private-key: ${{ secrets.PORTAL_DEPLOY_KEY }}
 
       - name: Combine and fetch portals
         run: |

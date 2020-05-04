@@ -13,7 +13,7 @@ for fileName in [f for f in os.listdir("portals/")]:
             "proofs": portal["proofs"]
         }
 
-subprocess.call(["git", "clone", "https://github.com/EndYok/endyok.github.io"])
+subprocess.call(["git", "clone", "git@github.com:EndYok/endyok.github.io.git"])
 
 dataDir = "endyok.github.io/data"
 if not os.path.exists(dataDir):
